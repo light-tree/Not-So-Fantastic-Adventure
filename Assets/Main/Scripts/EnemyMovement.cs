@@ -8,7 +8,8 @@ public class EnemyMovement : MonoBehaviour
     GameObject player;
     [SerializeField]
     float speed = 7F;
-    protected float maxDistance = 1F;
+    [SerializeField]
+    protected float maxDistance = 0.05F;
     bool facingLeft = true;
     SpriteRenderer spriteRenderer;
     void Start()
