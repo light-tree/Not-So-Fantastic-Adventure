@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour
 
     Rigidbody2D rigidbody;
     Vector2 moving;
+    bool facingLeft = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +25,16 @@ public class PlayerControl : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        //if(horizontal > 0)
-        //{
-        //    gameObject.
-        //}
+        
         moving = new Vector2(horizontal, vertical);
+
+        if(facingLeft && moving.x > 0)
+        {
+            Filp();
+        } else if(!facingLeft && moving.x < 0)
+        {
+            Filp();
+        }
     }
 
     private void FixedUpdate()
@@ -42,5 +48,11 @@ public class PlayerControl : MonoBehaviour
         animator.SetFloat("Speed", direction != Vector2.zero ? speed : 0);
     }
 
-    
+    void Filp()
+    {
+        facingLeft = !facingLeft;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 }

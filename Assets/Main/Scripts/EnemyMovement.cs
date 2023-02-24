@@ -8,20 +8,40 @@ public class EnemyMovement : MonoBehaviour
     GameObject player;
     [SerializeField]
     float speed = 7F;
+    protected float maxDistance = 1F;
+    bool facingLeft = true;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
-        
+        player = GameObject.Find("Player");
+        spriteRenderer = player.GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.Find("Player");
         Vector3 playerPosition = player.transform.position;
-        Vector3 enemyPosition = transform.position;
+        Vector3 distance = player.transform.position - transform.position;
 
-        Vector3 target = playerPosition;
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, speed * Time.deltaTime);
+        Vector3 target = playerPosition - distance.normalized * this.maxDistance; ;
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, target, speed * Time.deltaTime);
 
+
+        if(!facingLeft && playerPosition.x > transform.position.x)
+        {
+            Filp();
+        } else if(facingLeft && playerPosition.x < transform.position.x)
+        {
+            Filp(); 
+        }
+    }
+
+    void Filp()
+    {
+        facingLeft = !facingLeft;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
