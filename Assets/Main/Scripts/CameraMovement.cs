@@ -7,6 +7,7 @@ public class CameraMovement : MonoBehaviour
 
     public GameObject player;
     public Vector3 offset;
+   
 
     void Update()
     {
@@ -29,9 +30,4 @@ public class CameraMovement : MonoBehaviour
     //{
 
     //}
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log(collision.gameObject.name);
-    }
 }

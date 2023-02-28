@@ -23,7 +23,6 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         CheckBeAttcked();
-
     }
 
     void CheckBeAttcked()
@@ -37,7 +36,6 @@ public class EnemyAttack : MonoBehaviour
         {
             if (collider2s[i].gameObject.name.Contains("Player"))
             {
-                Debug.Log(collider2s[i].gameObject.name);
                 time += Time.deltaTime;
                 if(time > timeAttack)
                 {
@@ -48,7 +46,6 @@ public class EnemyAttack : MonoBehaviour
                 {
                     isAttack = false;
                 }
-                Debug.Log(isAttack);
             }
 
         }

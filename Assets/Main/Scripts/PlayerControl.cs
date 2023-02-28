@@ -8,15 +8,18 @@ public class PlayerControl : MonoBehaviour
     float speed = 25f;
     [SerializeField]
     Animator animator;
-
+    
     Rigidbody2D rigidbody;
     Vector2 moving;
-    bool facingLeft = true;
+    bool facingLeft = false;
+    Vector3 mousePos;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        
     }
 
     // Update is called once per frame
@@ -25,21 +28,37 @@ public class PlayerControl : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
         moving = new Vector2(horizontal, vertical);
 
-        if(facingLeft && moving.x > 0)
+        //if(facingLeft && moving.x > 0)
+        //{
+        //    Debug.Log("> 0");
+        //    Filp();
+        //} else if(!facingLeft && moving.x < 0)
+        //{
+        //    Debug.Log("< 0");
+        //    Filp();
+        //}
+
+        if(mousePos.x < transform.position.x)
         {
-            Filp();
-        } else if(!facingLeft && moving.x < 0)
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        } else if (mousePos.x > transform.position.x)
         {
-            Filp();
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
+
+
+
+
     }
 
     private void FixedUpdate()
     {
         MoveObject(moving);
+        //Filp();
     }
 
     void MoveObject(Vector2 direction)
@@ -50,9 +69,8 @@ public class PlayerControl : MonoBehaviour
 
     void Filp()
     {
-        facingLeft = !facingLeft;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        gameObject.GetComponent<SpriteRenderer>().flipX = facingLeft;
     }
+
+    
 }

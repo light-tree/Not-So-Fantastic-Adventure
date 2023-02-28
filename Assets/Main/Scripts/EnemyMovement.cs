@@ -16,7 +16,6 @@ public class EnemyMovement : MonoBehaviour
     {
         player = GameObject.Find("Player");
         spriteRenderer = player.GetComponent<SpriteRenderer>();
-        spriteRenderer.flipX = true;
     }
 
     // Update is called once per frame
