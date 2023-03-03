@@ -26,7 +26,11 @@ public class BulletScript : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject.name.Contains("Enemy"))
+            {
                 Destroy(colliders[i].gameObject);
+                Destroy(gameObject);
+            }
+
 
             if (colliders[i].gameObject.name.Contains("Wall"))
             {
