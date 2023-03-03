@@ -30,14 +30,16 @@ public class GunControl : MonoBehaviour
 
         if (facingLeft)
         {
-            if(rot2 < 90 && rot2 > 0)
+            if (rot2 < 90 && rot2 > 0)
             {
                 rot2 = 90;
-            } else if(rot2 > -90 && rot2 < 0)
+            }
+            else if (rot2 > -90 && rot2 < 0)
             {
                 rot2 = -90;
             }
-        } else
+        }
+        else
         {
             if (rot2 > 90 && rot2 > 0)
             {
@@ -52,13 +54,5 @@ public class GunControl : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, 0, rot2);
 
-    }
-
-    void Filp()
-    {
-        facingLeft = !facingLeft;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
     }
 }
