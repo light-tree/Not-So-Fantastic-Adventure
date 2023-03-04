@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,12 +9,15 @@ public class PlayerControl : MonoBehaviour
     float speed = 25f;
     [SerializeField]
     Animator animator;
-    
+    [SerializeField]
+    UIDocument uIDocument;
+    [SerializeField]
+    int hp = 100;
+
     Rigidbody2D rigidbody;
     Vector2 moving;
     bool facingLeft = false;
     Vector3 mousePos;
-
 
 
     // Start is called before the first frame update
@@ -49,10 +53,6 @@ public class PlayerControl : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
         }
-
-
-
-
     }
 
     private void FixedUpdate()
@@ -67,9 +67,11 @@ public class PlayerControl : MonoBehaviour
         animator.SetFloat("Speed", direction != Vector2.zero ? speed : 0);
     }
 
-    void Filp()
+    public void BeAttack(int damage)
     {
-        gameObject.GetComponent<SpriteRenderer>().flipX = facingLeft;
+        GameController gameController = uIDocument.GetComponent<GameController>();
+        hp -= damage;
+        gameController.UpdateHealth(hp);
     }
 
     

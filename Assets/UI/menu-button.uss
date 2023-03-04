@@ -1,0 +1,19 @@
+.menu-button {
+    font-size: 75px;
+    -unity-text-align: middle-center;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font: url('project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#Arial');
+    -unity-font-style: bold;
+    color: rgba(255, 255, 255, 255);
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    transition-duration: 0.2s;
+}
+
+.menu-button:hover {
+    font-size: 90px;
+    rotate: -10deg;
+    transition-duration: 0.3s;
+}

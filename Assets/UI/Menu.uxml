@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MenuStyles.uss?fileID=7433441132597879392&amp;guid=37522b1bcc8082d42a754db309a5425a&amp;type=3#MenuStyles" />
+    <ui:VisualElement style="width: 100%; height: 100%; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgba(106, 106, 106, 0.89); flex-grow: 1;">
+        <ui:VisualElement style="height: 100px;">
+            <ui:Label text="Not-So-Fantastic Advanture" display-tooltip-when-elided="true" style="align-items: center; width: 100%; height: 225px; justify-content: flex-start; font-size: 100px; -unity-text-align: middle-center; -unity-font-style: bold; color: rgb(255, 0, 0);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ButtonContainer" style="height: 100%; align-items: center; justify-content: center; margin-bottom: 50px;">
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="PlayButton" class="menu-button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" name="SettingButton" class="menu-button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="ExitButton" class="menu-button" style="border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

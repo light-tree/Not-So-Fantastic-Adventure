@@ -131,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 6573999726841865762}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f2855d618fc8d9c499189d3f39b9cbbc, type: 2}
+  m_Controller: {fileID: 9100000, guid: 91de07d5d920a644b996e6d18017bbb9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   checkAttack: {fileID: 6573999726381665427}
   checkAttackRadius: 0.45
   timeAttack: 1
+  damage: 5
 --- !u!1 &6573999727166875478
 GameObject:
   m_ObjectHideFlags: 0

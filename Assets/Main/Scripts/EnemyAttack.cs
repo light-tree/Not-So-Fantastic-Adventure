@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -11,12 +12,13 @@ public class EnemyAttack : MonoBehaviour
     float checkAttackRadius = 0.35f;
     [SerializeField]
     float timeAttack = 1f;
+    [SerializeField]
+    int damage;
     float time = 0;
     bool isAttack = true;
     
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -39,7 +41,8 @@ public class EnemyAttack : MonoBehaviour
                 time += Time.deltaTime;
                 if(time > timeAttack)
                 {
-                    isAttack = true;
+                    PlayerControl playerControl = collider2s[i].gameObject.GetComponent<PlayerControl>();
+                    playerControl.BeAttack(damage);
                     time = 0;
                 } 
                 else
