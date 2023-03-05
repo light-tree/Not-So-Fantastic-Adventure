@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         //_pauseLayout = _pauseScreen.Q<VisualElement>("PauseLayout");
         _continueButton = _document.rootVisualElement.Q<Button>("ContinueButton");
         _quitButton = _document.rootVisualElement.Q<Button>("QuitGameButton");
-        _loseLayout = _document.rootVisualElement.Q<Button>("LoseScreen");
+        _loseLayout = _document.rootVisualElement.Q<VisualElement>("LoseScreen");
         _playAgainButton = _document.rootVisualElement.Q<Button>("PlayAgainButton");
         _mainMenuButton = _document.rootVisualElement.Q<Button>("MainMenuButton");
 

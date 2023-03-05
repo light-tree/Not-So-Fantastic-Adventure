@@ -123,6 +123,7 @@ public class PlayerControl : MonoBehaviour
                 timeEndDead = time2 + timeDead;
                 Vector2 vector2 = gameObject.transform.position;
                 gameObject.transform.position = new Vector2(vector2.x, vector2.y + 1f);
+                FindObjectOfType<GameController>().SetLoseScreen(10, 10);
             }
             else
             {
