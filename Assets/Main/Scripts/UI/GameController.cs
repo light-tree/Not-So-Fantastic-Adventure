@@ -9,15 +9,22 @@ public class GameController : MonoBehaviour
 {
     private Label _time;
     private Label _healthDetail;
+    private Label _normalScore;
+    private Label _bossScore;
+    private Label _totalTime;
     private VisualElement _currenHealth;
     private VisualElement _pauseLayout;
+    private VisualElement _loseLayout;
     private UIDocument _document;
     private Button _continueButton;
     private Button _quitButton;
+    private Button _playAgainButton;
+    private Button _mainMenuButton;
     private float timeRun = 0;
     private float timeupdate = 0;
     private float cureentHp = 100;
     private int pointHp = 100;
+    private string totalTime = "";
     // Start is called before the first frame update
     void Start()
     {
@@ -25,15 +32,23 @@ public class GameController : MonoBehaviour
         _time = _document.rootVisualElement.Q<Label>("Time");
         _currenHealth = _document.rootVisualElement.Q<VisualElement>("CurrentHealth");
         _healthDetail = _document.rootVisualElement.Q<Label>("HealthDetail");
+        _normalScore = _document.rootVisualElement.Q<Label>("ScoreNormal");
+        _totalTime = _document.rootVisualElement.Q<Label>("TotalTime");
+        _bossScore = _document.rootVisualElement.Q<Label>("ScoreBoss");
         _pauseLayout = _document.rootVisualElement.Q<VisualElement>("PauseScreen");
         //_pauseLayout = _pauseScreen.Q<VisualElement>("PauseLayout");
         _continueButton = _document.rootVisualElement.Q<Button>("ContinueButton");
         _quitButton = _document.rootVisualElement.Q<Button>("QuitGameButton");
+        _loseLayout = _document.rootVisualElement.Q<Button>("LoseScreen");
+        _playAgainButton = _document.rootVisualElement.Q<Button>("PlayAgainButton");
+        _mainMenuButton = _document.rootVisualElement.Q<Button>("MainMenuButton");
 
         _currenHealth.style.width = 800;
         _healthDetail.text = $"{cureentHp}/100";
         _continueButton.clicked += ContinueButtonClick;
         _quitButton.clicked += QuitButtonOnClick;
+        _playAgainButton.clicked += PlayAgainButtonClick;
+        _mainMenuButton.clicked += MainMenuButtonOnClick;
 
         Time.timeScale = 1;
     }
@@ -97,13 +112,32 @@ public class GameController : MonoBehaviour
         {
             result += $"{second}";
         }
-
+        totalTime = result;
         _time.text = result;
     }
 
     public void UpdateHealth(int hp)
     {
         pointHp = hp;
+    }
+
+    public void SetLoseScreen(int normalScore,int bossScore)
+    {
+        _bossScore.text = $"x{bossScore}";
+        _normalScore.text = $"x{normalScore}";
+        _totalTime.text = totalTime;
+        _loseLayout.style.display = DisplayStyle.Flex;
+        Time.timeScale = 0;
+    }
+
+    private void PlayAgainButtonClick()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void MainMenuButtonOnClick()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
 }
