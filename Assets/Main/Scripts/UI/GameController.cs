@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     private Label _normalScore;
     private Label _bossScore;
     private Label _totalTime;
+    private Label _normalScoreScreen;
+    private Label _bossScoreScreen;
     private VisualElement _currenHealth;
     private VisualElement _pauseLayout;
     private VisualElement _loseLayout;
@@ -35,6 +37,8 @@ public class GameController : MonoBehaviour
         _normalScore = _document.rootVisualElement.Q<Label>("ScoreNormal");
         _totalTime = _document.rootVisualElement.Q<Label>("TotalTime");
         _bossScore = _document.rootVisualElement.Q<Label>("ScoreBoss");
+        _bossScoreScreen = _document.rootVisualElement.Q<Label>("BossS");
+        _normalScoreScreen = _document.rootVisualElement.Q<Label>("NormalS");
         _pauseLayout = _document.rootVisualElement.Q<VisualElement>("PauseScreen");
         //_pauseLayout = _pauseScreen.Q<VisualElement>("PauseLayout");
         _continueButton = _document.rootVisualElement.Q<Button>("ContinueButton");
@@ -138,6 +142,12 @@ public class GameController : MonoBehaviour
     private void MainMenuButtonOnClick()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void UpdateScore(int normal, int boss)
+    {
+        _normalScoreScreen.text = $"x{normal}";
+        _bossScoreScreen.text = $"x{boss}";
     }
 
 }
