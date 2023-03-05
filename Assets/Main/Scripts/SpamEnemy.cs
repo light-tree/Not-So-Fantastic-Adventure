@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,26 +16,24 @@ public class SpamEnemy : MonoBehaviour
     GameObject enemy_4;
 
     [SerializeField]
-    float timeSam0;
+    int MaxEnemyCount;
+
     [SerializeField]
-    float timeSam1;
+    float GeneralSpawnTime;
+
     [SerializeField]
-    float timeSam2;
-    [SerializeField]
-    float timeSam3;
-    [SerializeField]
-    float timeSam4;
+    float PrepareTime;
+
+    float TimeSpawnNormalEnemy;
+    float TimeSpawnBoss;
 
     [SerializeField]
     Tilemap tilemap;
 
-
     float screenLeft, screenTop, screenRight, screenBottom;
-    float time0;
-    float time1;
-    float time2;
-    float time3;
-    float time4;
+    float TimeNormalEnemy;
+    float TimeBoss;
+    List<GameObject> NormalEnemies;
 
     // Start is called before the first frame update
     void Start()
@@ -49,63 +48,55 @@ public class SpamEnemy : MonoBehaviour
         screenTop = upperRightCornerWorld.y;
         screenBottom = lowerLeftCornerWorld.y;
 
-        time0 = timeSam0;
-        time1 = timeSam1;
-        time2 = timeSam2;
-        time3 = timeSam3;
-        time4 = timeSam4;
+        NormalEnemies = new List<GameObject>{
+                enemy_0,
+                enemy_1,
+                enemy_2,
+                enemy_4
+        };
+
+        TimeSpawnNormalEnemy = GeneralSpawnTime * 0.5f;
+        TimeSpawnBoss = GeneralSpawnTime * 20;
+
+        TimeNormalEnemy = -PrepareTime;
+        TimeBoss = -PrepareTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        time0 += Time.deltaTime;
-        time1 += Time.deltaTime;
-        time2 += Time.deltaTime;
-        time3 += Time.deltaTime;
-        time4 += Time.deltaTime;
+        TimeNormalEnemy += Time.deltaTime;
+        TimeBoss += Time.deltaTime;
 
-        if (time0 >= timeSam0)
+        SpawnEnemyWhenAllowed(ref TimeNormalEnemy, TimeSpawnNormalEnemy, null);
+        SpawnEnemyWhenAllowed(ref TimeBoss, TimeSpawnBoss, enemy_3);
+    }
+
+    Vector3 GetRandomWorldPosition()
+    {
+        Vector3Int RandomPosition = new Vector3Int(
+            Random.Range(tilemap.cellBounds.min.x + 1, tilemap.cellBounds.max.x - 1), 
+            Random.Range(tilemap.cellBounds.min.y + 1, tilemap.cellBounds.max.y - 1),
+            0);
+        Vector3 RandomWorldPosition = tilemap.CellToWorld(RandomPosition) + new Vector3(0.5f, 0.5f, 0);
+        return RandomWorldPosition;
+    }
+
+    void SpawnEnemyWhenAllowed(ref float time, float timeSpawn, GameObject enemyGameObject)
+    {
+        int CurrentEnemiesCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if (time >= timeSpawn && CurrentEnemiesCount < MaxEnemyCount)
         {
-            Vector2 position = new Vector2(Random.Range(screenLeft - 0.5f, screenRight + 0.5f), Random.Range(screenBottom - 0.5f, screenTop + 0.5f));
-            GameObject enemy0 = Instantiate(enemy_0);
-            enemy0.transform.position = position;
-            time0 = 0;
+            GameObject enemy = Instantiate(enemyGameObject == null ? GetRandomNormalEnemy() : enemyGameObject);
+            enemy.transform.position = GetRandomWorldPosition();
+            time = 0;
         }
+    }
 
-        if (time1 >= timeSam1)
-        {
-            Vector2 position = new Vector2(Random.Range(screenLeft - 0.5f, screenRight + 0.5f), Random.Range(screenBottom - 0.5f, screenTop + 0.5f));
-            GameObject enemy1 = Instantiate(enemy_1);
-            enemy1.transform.position = position;
-            time1 = 0;
-        }
-
-        if (time2 >= timeSam2)
-        {
-            Vector2 position = new Vector2(Random.Range(screenLeft - 0.5f, screenRight + 0.5f), Random.Range(screenBottom - 0.5f, screenTop + 0.5f));
-            GameObject enemy2 = Instantiate(enemy_2);
-            enemy2.transform.position = position;
-            time2 = 0;
-        }
-        if (time3 >= timeSam3)
-        {
-            Vector2 position = new Vector2(Random.Range(screenLeft - 0.5f, screenRight + 0.5f), Random.Range(screenBottom - 0.5f, screenTop + 0.5f));
-            GameObject enemy3 = Instantiate(enemy_3);
-            enemy3.transform.position = position;
-            time3 = 0;
-        }
-
-
-        if (time4 >= timeSam4)
-        {
-            Vector3Int randomPosition = new Vector3Int(Random.Range(tilemap.cellBounds.min.x + 1, tilemap.cellBounds.max.x - 1), Random.Range(tilemap.cellBounds.min.y + 1, tilemap.cellBounds.max.y - 1), 0);
-            Vector3 randomWorldPosition = tilemap.CellToWorld(randomPosition) + new Vector3(0.5f, 0.5f, 0);
-            GameObject enemy4 = Instantiate(enemy_4);
-            enemy4.transform.position = randomWorldPosition;
-            time4 = 0;
-        }
-
-
+    GameObject GetRandomNormalEnemy()
+    {
+        int index = Random.Range(0, NormalEnemies.Count + 1);
+        if(index == 4) return NormalEnemies[3];
+        else return NormalEnemies[index];
     }
 }
