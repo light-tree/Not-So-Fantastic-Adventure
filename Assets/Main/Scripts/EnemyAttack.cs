@@ -24,10 +24,10 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckBeAttcked();
+        CheckBeAttacked();
     }
 
-    void CheckBeAttcked()
+    void CheckBeAttacked()
     {
         Collider2D[] collider2s = Physics2D.OverlapCircleAll(checkAttack.position, checkAttackRadius);
         if(collider2s.Length == 0)

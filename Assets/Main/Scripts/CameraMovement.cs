@@ -20,9 +20,12 @@ public class CameraMovement : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 vector3 = transform.position;
-        vector3.x = player.gameObject.transform.position.x;
-        transform.position = player.gameObject.transform.position;
+        if (!player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Player_dead"))
+        {
+            Vector3 vector3 = transform.position;
+            vector3.x = player.gameObject.transform.position.x;
+            transform.position = player.gameObject.transform.position;
+        }
     }
 
     //// Update is called once per frame

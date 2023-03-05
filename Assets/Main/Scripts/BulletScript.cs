@@ -10,6 +10,8 @@ public class BulletScript : MonoBehaviour
     public float force;
     [SerializeField]
     Transform checkAttack;
+    [SerializeField]
+    float Damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +27,18 @@ public class BulletScript : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(checkAttack.position, 0.17f);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject.name.Contains("Enemy"))
+            GameObject go = colliders[i].gameObject;
+            if (go.name.Contains("Enemy"))
             {
-                Destroy(colliders[i].gameObject);
-                Destroy(gameObject);
+                Animator animator = go.GetComponent<Animator>();
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+                {
+                    go.GetComponent<EnemyBeAttacked>().BeAttacked(Damage);
+                    Destroy(gameObject);
+                }
             }
 
-
-            if (colliders[i].gameObject.name.Contains("Wall"))
+            if (go.name.Contains("Wall"))
             {
                 Destroy(gameObject);
             }
