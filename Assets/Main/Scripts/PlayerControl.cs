@@ -46,7 +46,12 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsDead)
+
+        //if (Time.timeScale <= 0)
+        //{
+        //    return;
+        //}
+        if (!IsDead && Time.timeScale > 0)
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");

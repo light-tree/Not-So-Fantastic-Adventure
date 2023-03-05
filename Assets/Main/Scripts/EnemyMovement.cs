@@ -12,6 +12,8 @@ public class EnemyMovement : MonoBehaviour
     protected float maxDistance = 0.05F;
     bool facingLeft = true;
     SpriteRenderer spriteRenderer;
+
+    bool isDead = false;
     void Start()
     {
         player = GameObject.Find("Player");

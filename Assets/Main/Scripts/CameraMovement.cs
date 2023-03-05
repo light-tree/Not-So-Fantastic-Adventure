@@ -16,6 +16,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FindObjectOfType<AudioManagement>().Play("NormalBattle");
     }
 
     private void LateUpdate()

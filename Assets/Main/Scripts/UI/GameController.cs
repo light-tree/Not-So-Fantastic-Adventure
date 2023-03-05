@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
-    private bool isPause = false;
-
     private Label _time;
     private Label _healthDetail;
     private VisualElement _currenHealth;
+    private VisualElement _pauseLayout;
     private UIDocument _document;
+    private Button _continueButton;
+    private Button _quitButton;
     private float timeRun = 0;
     private float timeupdate = 0;
     private float cureentHp = 100;
@@ -23,9 +25,22 @@ public class GameController : MonoBehaviour
         _time = _document.rootVisualElement.Q<Label>("Time");
         _currenHealth = _document.rootVisualElement.Q<VisualElement>("CurrentHealth");
         _healthDetail = _document.rootVisualElement.Q<Label>("HealthDetail");
+        _pauseLayout = _document.rootVisualElement.Q<VisualElement>("PauseScreen");
+        //_pauseLayout = _pauseScreen.Q<VisualElement>("PauseLayout");
+        _continueButton = _document.rootVisualElement.Q<Button>("ContinueButton");
+        _quitButton = _document.rootVisualElement.Q<Button>("QuitGameButton");
 
         _currenHealth.style.width = 800;
         _healthDetail.text = $"{cureentHp}/100";
+        _continueButton.clicked += ContinueButtonClick;
+        _quitButton.clicked += QuitButtonOnClick;
+
+        Time.timeScale = 1;
+    }
+
+    private void QuitButtonOnClick()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     // Update is called once per frame
@@ -33,7 +48,7 @@ public class GameController : MonoBehaviour
     {
         if(cureentHp > pointHp && cureentHp >= 0)
         {
-            cureentHp -= (cureentHp - pointHp) * Time.deltaTime;
+            cureentHp -= (cureentHp) * Time.deltaTime;
             _currenHealth.style.width = cureentHp * 8;
             _healthDetail.text = $"{Math.Round(cureentHp, 0)}/100";
             timeupdate = 0;
@@ -47,16 +62,17 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(1))
         {
-            isPause = !isPause;
-        }
-
-        if (isPause)
-        {
+            _pauseLayout.style.display = DisplayStyle.Flex;
+            //_document.rootVisualElement.Add(_pauseLayout);
             Time.timeScale = 0;
-        } else
-        {
-            Time.timeScale = 1;
         }
+    }
+
+    private void ContinueButtonClick()
+    {
+        Time.timeScale = 1;
+        _pauseLayout.style.display = DisplayStyle.None;
+        //_document.rootVisualElement.Remove(_pauseLayout);
     }
 
     private void SetTime()
