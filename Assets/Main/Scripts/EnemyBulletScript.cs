@@ -10,6 +10,8 @@ public class EnemyBulletScript : MonoBehaviour
     float force;
     [SerializeField]
     Transform checkAttack;
+    [SerializeField]
+    public float Damage;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -21,14 +23,14 @@ public class EnemyBulletScript : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(checkAttack.position, 0.17f);
         for (int i = 0; i < colliders.Length; i++)
         {
-            //if (colliders[i].gameObject.name.Contains("Player"))
-            //{
-            //    Destroy(colliders[i].gameObject);
-            //    Destroy(gameObject);
-            //}
+            GameObject go = colliders[i].gameObject;
+            if (go.name.Contains("Player"))
+            {
+                go.GetComponent<PlayerControl>().BeAttack((int)Damage);
+                Destroy(gameObject);
+            }
 
-
-            if (colliders[i].gameObject.name.Contains("Wall"))
+            if (go.name.Contains("Wall"))
             {
                 Destroy(gameObject);
             }

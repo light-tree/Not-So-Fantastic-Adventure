@@ -17,8 +17,11 @@ public class MenuController : MonoBehaviour
     private Slider _soundSlider;
     private VisualElement _buttonsContainer;
     private VisualElement _addjustSetting;
+    private VisualElement _exitPanel;
+    private Button _confirmYesExit;
+    private Button _confirmNoExit;
 
-    [SerializeField]
+   [SerializeField]
     VisualTreeAsset _settingsTemplate;
     [SerializeField]
     private Sprite _mutedSprite;
@@ -35,6 +38,9 @@ public class MenuController : MonoBehaviour
         _playButton = _doc.rootVisualElement.Q<Button>("PlayButton");
         _settingButton = _doc.rootVisualElement.Q<Button>("SettingButton");
         _exitButton = _doc.rootVisualElement.Q<Button>("ExitButton");
+        _exitPanel = _doc.rootVisualElement.Q<VisualElement>("ExitPanel");
+        _confirmYesExit = _doc.rootVisualElement.Q<Button>("ConfirmYesExit");
+        _confirmNoExit = _doc.rootVisualElement.Q<Button>("ConfirmNoExit");
         //_backButton = _addjustSetting.Q<Button>("BackButton");
         //_saveButton = _addjustSetting.Q<Button>("SaveButton");
         //_soundSlider = _addjustSetting.Q<Slider>("SoundSetting");
@@ -44,9 +50,16 @@ public class MenuController : MonoBehaviour
         _playButton.clicked += PlayButtonOnClicked;
         _exitButton.clicked += ExitButtonOnClicked;
         _settingButton.clicked += SettingsButtonOnClick;
+
+        
+        _confirmYesExit.clicked += ConfirmYesExitClicked;
+        _confirmNoExit.clicked += ConfirmNoExitClicked;
         //_backButton.clicked += BackButtonOnClick;
         //_saveButton.clicked += SaveButtonOnClick;
         //_muteButton.clicked += MuteButtonOnClick;
+
+
+      
     }
 
     private void PlayButtonOnClicked()
@@ -56,7 +69,11 @@ public class MenuController : MonoBehaviour
 
     private void ExitButtonOnClicked()
     {
-        Application.Quit();
+        _exitPanel.style.display = DisplayStyle.Flex;
+        _buttonsContainer.style.display = DisplayStyle.None; 
+
+
+
     }
 
     private void MuteButtonOnClick()
@@ -93,4 +110,21 @@ public class MenuController : MonoBehaviour
         _buttonsContainer.Add(_settingButton);
         _buttonsContainer.Add(_exitButton);
     }
+
+
+    private void ConfirmYesExitClicked()
+    {
+        Application.Quit();
+    }
+
+    private void ConfirmNoExitClicked()
+    {
+        _exitPanel.style.display = DisplayStyle.None;
+        _buttonsContainer.style.display = DisplayStyle.Flex;
+
+    }
+
+
+
+
 }

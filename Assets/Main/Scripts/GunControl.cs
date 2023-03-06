@@ -20,6 +20,10 @@ public class GunControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale <= 0)
+        {
+            return;
+        }
         facingLeft = player.GetComponent<SpriteRenderer>().flipX;
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

@@ -13,7 +13,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     float timeAttack = 1f;
     [SerializeField]
-    int damage;
+    public float damage;
     float time = 0;
     bool isAttack = true;
     
@@ -24,10 +24,10 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckBeAttcked();
+        CheckBeAttacked();
     }
 
-    void CheckBeAttcked()
+    void CheckBeAttacked()
     {
         Collider2D[] collider2s = Physics2D.OverlapCircleAll(checkAttack.position, checkAttackRadius);
         if(collider2s.Length == 0)
@@ -42,7 +42,7 @@ public class EnemyAttack : MonoBehaviour
                 if(time > timeAttack)
                 {
                     PlayerControl playerControl = collider2s[i].gameObject.GetComponent<PlayerControl>();
-                    playerControl.BeAttack(damage);
+                    playerControl.BeAttack((int)damage);
                     time = 0;
                 } 
                 else

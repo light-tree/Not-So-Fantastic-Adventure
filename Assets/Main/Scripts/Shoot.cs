@@ -5,39 +5,36 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
     [SerializeField]
-    GameObject bullet;
+    GameObject bulletGameObject;
     [SerializeField]
     float speed;
     float time = 1f;
     [SerializeField]
-    float timeShoot;
-    float destinationX;
-    float destinationY;
+    public float timeShoot;
+    [SerializeField]
+    public float Damage;
 
     Vector2 moving;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale <= 0)
+        {
+            return;
+        }
         if (Input.GetMouseButton(0))
         {
             time += Time.deltaTime;
             if(time >= timeShoot)
             {
-                GameObject gameObject = Instantiate(bullet);
-                gameObject.name = "Bullet";
-                gameObject.transform.position = transform.position;
-                gameObject.gameObject.SetActive(true);
+                GameObject bullet = Instantiate(bulletGameObject);
+                bullet.name = "Bullet";
+                bullet.transform.position = transform.position;
+                bullet.gameObject.SetActive(true);
                 time = 0;
+                FindObjectOfType<AudioManagement>().Play("Player_shoot");
             } 
-        } else
-        {
-            time = 0;
         }
     }
-
 }
