@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
 
     private void PauseGame()
     {
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonUp(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             _pauseLayout.style.display = DisplayStyle.Flex;
             Time.timeScale = 0;
