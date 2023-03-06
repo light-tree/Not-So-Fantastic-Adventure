@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bdee1049d867649b0cd63118462c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 3
   maxDistance: 1
 --- !u!114 &6573999726841865769
 MonoBehaviour:
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkAttack: {fileID: 6573999726381665427}
-  checkAttackRadius: 0.4
+  checkAttackRadius: 1.35
   timeAttack: 1
   damage: 3
 --- !u!114 &4858448713049531087
@@ -211,8 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e11e906acaca20438e52f7fe4fd7925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 20
-  IsFallable: 1
+  MaxHealth: 30
+  items:
+  - {fileID: 553910509556063874, guid: ffe29c9aa35787a44b50e13abb69f840, type: 3}
+  - {fileID: 469546715205257414, guid: ca9d904ea10f7914db21fbd99659b446, type: 3}
 --- !u!1 &6573999727166875478
 GameObject:
   m_ObjectHideFlags: 0

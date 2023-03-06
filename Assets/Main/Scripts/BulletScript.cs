@@ -10,7 +10,6 @@ public class BulletScript : MonoBehaviour
     public float force;
     [SerializeField]
     Transform checkAttack;
-    [SerializeField]
     float Damage;
     // Start is called before the first frame update
     void Start()
@@ -19,11 +18,13 @@ public class BulletScript : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = mousePos - transform.position;
         rb.velocity = new Vector2(direction.x, direction.y).normalized * force;
+        Damage = GameObject.Find("Weapon 4").GetComponent<Shoot>().Damage;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Damage = GameObject.Find("Weapon 4").GetComponent<Shoot>().Damage;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(checkAttack.position, 0.17f);
         for (int i = 0; i < colliders.Length; i++)
         {

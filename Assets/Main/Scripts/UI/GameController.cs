@@ -24,9 +24,9 @@ public class GameController : MonoBehaviour
     private Button _mainMenuButton;
     private float timeRun = 0;
     private float timeupdate = 0;
-    private float cureentHp = 100;
-    private int pointHp = 100;
-    private string totalTime = "";
+    private float maxHp;
+    private float currentHp;
+    private float playerCurrentHp;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +47,13 @@ public class GameController : MonoBehaviour
         _playAgainButton = _document.rootVisualElement.Q<Button>("PlayAgainButton");
         _mainMenuButton = _document.rootVisualElement.Q<Button>("MainMenuButton");
 
+        PlayerControl playerControl = GameObject.Find("Player").GetComponent<PlayerControl>();
+        maxHp = playerControl.maxHp;
+        currentHp = maxHp;
+        playerCurrentHp = maxHp;
+
         _currenHealth.style.width = 800;
-        _healthDetail.text = $"{cureentHp}/100";
+        _healthDetail.text = $"{currentHp}/{maxHp}";
         _continueButton.clicked += ContinueButtonClick;
         _quitButton.clicked += QuitButtonOnClick;
         _playAgainButton.clicked += PlayAgainButtonClick;
@@ -65,12 +70,19 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cureentHp > pointHp && cureentHp >= 0)
+        if(currentHp != playerCurrentHp)
         {
-            cureentHp -= (cureentHp) * Time.deltaTime;
-            _currenHealth.style.width = cureentHp * 8;
-            _healthDetail.text = $"{Math.Round(cureentHp, 0)}/100";
-            timeupdate = 0;
+            //if (currentHp > playerCurrentHp)
+            //{
+            //    currentHp -= currentHp * Time.deltaTime;
+            //}
+            //else
+            //{
+            //    currentHp += currentHp * Time.deltaTime;
+            //}
+            currentHp = playerCurrentHp;
+            _currenHealth.style.width = currentHp * 800 / maxHp;
+            _healthDetail.text = $"{Math.Round(currentHp, 0)}/{maxHp}";
         }
 
         PauseGame();
@@ -120,9 +132,10 @@ public class GameController : MonoBehaviour
         _time.text = result;
     }
 
-    public void UpdateHealth(int hp)
+    public void UpdateHealth(float playerCurrentHp, float playerMaxHp)
     {
-        pointHp = hp;
+        this.playerCurrentHp = playerCurrentHp;
+        maxHp = playerMaxHp;
     }
 
     public void SetLoseScreen(int normalScore,int bossScore)

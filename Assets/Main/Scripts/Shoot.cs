@@ -10,8 +10,9 @@ public class Shoot : MonoBehaviour
     float speed;
     float time = 1f;
     [SerializeField]
-    float timeShoot;
-
+    public float timeShoot;
+    [SerializeField]
+    public float Damage;
 
     Vector2 moving;
 
@@ -34,9 +35,6 @@ public class Shoot : MonoBehaviour
                 time = 0;
                 FindObjectOfType<AudioManagement>().Play("Player_shoot");
             } 
-        } else
-        {
-            time = timeShoot;
         }
     }
 }

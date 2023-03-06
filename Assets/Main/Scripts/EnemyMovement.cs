@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     GameObject player;
     [SerializeField]
-    float speed = 7F;
+    public float speed;
     [SerializeField]
     protected float maxDistance = 0.05F;
     bool facingLeft = true;

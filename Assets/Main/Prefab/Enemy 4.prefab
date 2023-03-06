@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1154249413429169737, guid: 92645b1f38f3ad344a5ec6a21c1796bd, type: 3}
+  Damage: 3
 --- !u!61 &-6317380154567262632
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,8 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e11e906acaca20438e52f7fe4fd7925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 25
-  IsAttacked: 0
+  MaxHealth: 20
+  items:
+  - {fileID: 553910509556063874, guid: ffe29c9aa35787a44b50e13abb69f840, type: 3}
+  - {fileID: 469546715205257414, guid: ca9d904ea10f7914db21fbd99659b446, type: 3}
 --- !u!1001 &7336587702959000407
 PrefabInstance:
   m_ObjectHideFlags: 0

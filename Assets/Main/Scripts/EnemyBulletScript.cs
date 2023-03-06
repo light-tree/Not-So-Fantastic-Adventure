@@ -11,7 +11,7 @@ public class EnemyBulletScript : MonoBehaviour
     [SerializeField]
     Transform checkAttack;
     [SerializeField]
-    float Damage;
+    public float Damage;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

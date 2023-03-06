@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField]
-    float speed = 25f;
+    public float speed;
     [SerializeField]
     Animator animator;
     [SerializeField]
     UIDocument uIDocument;
     [SerializeField]
-    int hp = 100;
-
+    public float maxHp;
+    float currentHp;
     GameObject RotePoint;
     Rigidbody2D rigidbody;
     Vector2 moving;
@@ -31,16 +31,22 @@ public class PlayerControl : MonoBehaviour
     float timeDead = 0.5f;
     float time2;
     float timeEndDead;
+
+    public int normalEnemyCount;
+    public int bossEnemyCount;
     // Start is called before the first frame update
     void Start()
     {
         RotePoint = transform.Find("RotePoint").gameObject;
         rigidbody = GetComponent<Rigidbody2D>();
+        currentHp = maxHp;
         IsAttacked = false;
         time = 0;
         IsDead = false;
         time2 = 0;
         originalColor = gameObject.GetComponent<Renderer>().material.color;
+        normalEnemyCount = 0;
+        bossEnemyCount = 0;
     }
 
     // Update is called once per frame
@@ -112,9 +118,10 @@ public class PlayerControl : MonoBehaviour
         if (!IsDead)
         {
             GameController gameController = uIDocument.GetComponent<GameController>();
-            hp -= damage;
-            gameController.UpdateHealth(hp);
-            if (hp <= 0)
+            currentHp -= damage;
+            gameController.UpdateHealth(currentHp, maxHp);
+            FindObjectOfType<AudioManagement>().Play("Hit1");
+            if (currentHp <= 0)
             {
                 gameObject.GetComponent<Renderer>().material.color = originalColor;
                 animator.Play("Player_dead");
@@ -134,5 +141,31 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    
+    public void BeHealed(int heal)
+    {
+        if (!IsDead)
+        {
+            GameController gameController = uIDocument.GetComponent<GameController>();
+            currentHp += heal;
+            if(currentHp > maxHp) currentHp = maxHp;
+            gameController.UpdateHealth(currentHp, maxHp);
+            gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
+            IsAttacked = true;
+            timeEndHit = time + timeHit;
+        }
+    }
+
+    public void IncreaseMaxHp(int hp)
+    {
+        if (!IsDead)
+        {
+            GameController gameController = uIDocument.GetComponent<GameController>();
+            currentHp += hp;
+            maxHp += hp;
+            gameController.UpdateHealth(currentHp, maxHp);
+            gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
+            IsAttacked = true;
+            timeEndHit = time + timeHit;
+        }
+    }
 }

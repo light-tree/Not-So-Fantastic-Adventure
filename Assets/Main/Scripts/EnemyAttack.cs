@@ -13,7 +13,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField]
     float timeAttack = 1f;
     [SerializeField]
-    int damage;
+    public float damage;
     float time = 0;
     bool isAttack = true;
     
@@ -42,7 +42,7 @@ public class EnemyAttack : MonoBehaviour
                 if(time > timeAttack)
                 {
                     PlayerControl playerControl = collider2s[i].gameObject.GetComponent<PlayerControl>();
-                    playerControl.BeAttack(damage);
+                    playerControl.BeAttack((int)damage);
                     time = 0;
                 } 
                 else

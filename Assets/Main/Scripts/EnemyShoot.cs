@@ -19,7 +19,10 @@ public class EnemyShoot : MonoBehaviour
     Animator animator;
 
     [SerializeField]
-    GameObject bullet;
+    public GameObject bullet;
+
+    [SerializeField]
+    public float Damage;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -47,6 +50,7 @@ public class EnemyShoot : MonoBehaviour
             foreach (Vector2 point in pointPosition)
             {
                 GameObject gameObject = Instantiate(bullet);
+                gameObject.GetComponent<EnemyBulletScript>().Damage = Damage;
                 gameObject.transform.position = transform.position;
                 gameObject.GetComponent<EnemyBulletScript>().SetBulletMove(point);
             }
@@ -58,6 +62,7 @@ public class EnemyShoot : MonoBehaviour
             foreach(Vector2 point in pointPosition)
             {
                 GameObject gameObject = Instantiate(bullet);
+                gameObject.GetComponent<EnemyBulletScript>().Damage = Damage;
                 gameObject.transform.position = transform.position;
                 gameObject.GetComponent<EnemyBulletScript>().SetBulletMove(point);
             }

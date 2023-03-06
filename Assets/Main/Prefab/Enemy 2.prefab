@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bdee1049d867649b0cd63118462c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5.5
-  maxDistance: 0.05
+  speed: 3.5
+  maxDistance: 1
 --- !u!114 &8789373273093553928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,9 +280,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkAttack: {fileID: 8789373272951249965}
-  checkAttackRadius: 0.8
+  checkAttackRadius: 1.35
   timeAttack: 1
-  damage: 0
+  damage: 5
 --- !u!114 &6844499631814534543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +296,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 20
-  IsFallable: 1
+  items:
+  - {fileID: 553910509556063874, guid: ffe29c9aa35787a44b50e13abb69f840, type: 3}
+  - {fileID: 469546715205257414, guid: ca9d904ea10f7914db21fbd99659b446, type: 3}
 --- !u!1001 &6572473753853395127
 PrefabInstance:
   m_ObjectHideFlags: 0

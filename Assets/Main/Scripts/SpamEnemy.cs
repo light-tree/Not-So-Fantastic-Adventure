@@ -33,6 +33,14 @@ public class SpamEnemy : MonoBehaviour
     float screenLeft, screenTop, screenRight, screenBottom;
     float TimeNormalEnemy;
     float TimeBoss;
+
+    int HardIncreasedCount;
+    public float GeneralHardBonus;
+    public float GeneralSpawnTimeBonus;
+    public float EnemyHpBonusAsPercent;
+    public float EnemyDamageBonusAsPercent;
+    public float EnemyMovemonetSpeedBonusAsPercent;
+
     List<GameObject> NormalEnemies;
 
     // Start is called before the first frame update
@@ -48,6 +56,8 @@ public class SpamEnemy : MonoBehaviour
         screenTop = upperRightCornerWorld.y;
         screenBottom = lowerLeftCornerWorld.y;
 
+        HardIncreasedCount = 0;
+
         NormalEnemies = new List<GameObject>{
                 enemy_0,
                 enemy_1,
@@ -56,11 +66,18 @@ public class SpamEnemy : MonoBehaviour
         };
 
         TimeSpawnNormalEnemy = GeneralSpawnTime * 0.5f;
-        TimeSpawnBoss = GeneralSpawnTime * 20;
+        TimeSpawnBoss = GeneralSpawnTime * 10;
 
         TimeNormalEnemy = -PrepareTime;
         TimeBoss = -PrepareTime;
-    }
+
+        // GeneralSpawnTime is 3, then GeneralHardBonus is 3.33
+        GeneralHardBonus = 10 / GeneralSpawnTime;
+        GeneralSpawnTimeBonus = GeneralHardBonus/25;
+        EnemyHpBonusAsPercent = GeneralHardBonus * 2;
+        EnemyDamageBonusAsPercent = GeneralHardBonus * 2;
+        EnemyMovemonetSpeedBonusAsPercent = GeneralHardBonus/2;
+}
 
     // Update is called once per frame
     void Update()
@@ -70,6 +87,8 @@ public class SpamEnemy : MonoBehaviour
 
         SpawnEnemyWhenAllowed(ref TimeNormalEnemy, TimeSpawnNormalEnemy, null);
         SpawnEnemyWhenAllowed(ref TimeBoss, TimeSpawnBoss, enemy_3);
+
+
     }
 
     Vector3 GetRandomWorldPosition()
@@ -88,6 +107,19 @@ public class SpamEnemy : MonoBehaviour
         if (time >= timeSpawn && CurrentEnemiesCount < MaxEnemyCount)
         {
             GameObject enemy = Instantiate(enemyGameObject == null ? GetRandomNormalEnemy() : enemyGameObject);
+
+            if (enemy.name.Contains("Enemy 4"))
+            {
+                enemy.GetComponent<EnemyBeAttacked>().MaxHealth *= 1 + HardIncreasedCount * (EnemyHpBonusAsPercent / 100);
+                enemy.GetComponent<EnemyShoot>().Damage *= 1 + HardIncreasedCount * (EnemyDamageBonusAsPercent / 100);
+            }
+            else
+            {
+                enemy.GetComponent<EnemyMovement>().speed *= 1 + HardIncreasedCount * (EnemyMovemonetSpeedBonusAsPercent / 100);
+                enemy.GetComponent<EnemyAttack>().damage *= 1 + HardIncreasedCount * (EnemyDamageBonusAsPercent / 100);
+                enemy.GetComponent<EnemyBeAttacked>().MaxHealth *= 1 + HardIncreasedCount * (EnemyHpBonusAsPercent / 100);
+            }
+
             enemy.transform.position = GetRandomWorldPosition();
             time = 0;
         }
@@ -95,8 +127,24 @@ public class SpamEnemy : MonoBehaviour
 
     GameObject GetRandomNormalEnemy()
     {
+        GameObject enemy;
         int index = Random.Range(0, NormalEnemies.Count + 1);
-        if(index == 4) return NormalEnemies[3];
-        else return NormalEnemies[index];
+        if(index == 4) enemy = NormalEnemies[3];
+        else enemy = NormalEnemies[index];
+        Debug.Log(GeneralSpawnTime + " " + HardIncreasedCount + " " + (1 + HardIncreasedCount * (EnemyHpBonusAsPercent / 100)));
+        return enemy;
+    }
+
+    public void IncreaseHard()
+    {
+        //GeneralHardBonus = 10/3
+        //GeneralSpawnTimeBonus = 10/3/25 = 2/15
+        //GeneralSpawnTime = 3
+        HardIncreasedCount++;
+
+        GeneralSpawnTime = (GeneralSpawnTime / (GeneralSpawnTimeBonus + GeneralSpawnTime)) * GeneralSpawnTime;
+
+        TimeSpawnNormalEnemy = GeneralSpawnTime * 0.5f;
+        TimeSpawnBoss = GeneralSpawnTime * 10;
     }
 }

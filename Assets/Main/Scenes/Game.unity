@@ -284,6 +284,7 @@ MonoBehaviour:
   bulletGameObject: {fileID: 1597620891}
   speed: 0
   timeShoot: 0.2
+  Damage: 10
 --- !u!1 &302111270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2272,6 +2273,11 @@ MonoBehaviour:
   GeneralSpawnTime: 3
   PrepareTime: 0
   tilemap: {fileID: 1178310876}
+  GeneralHardBonus: 0
+  GeneralSpawnTimeBonus: 0
+  EnemyHpBonusAsPercent: 0
+  EnemyDamageBonusAsPercent: 0
+  EnemyMovemonetSpeedBonusAsPercent: 0
 --- !u!1 &1161764359
 GameObject:
   m_ObjectHideFlags: 0
@@ -55085,7 +55091,7 @@ MonoBehaviour:
   sounds:
   - name: Player_shoot
     clip: {fileID: 8300000, guid: a7bc6ee1484576543a4d6f2b3151abf0, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 0.5
     source: {fileID: 0}
     loop: 0
@@ -55101,6 +55107,24 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
+  - name: LevelUp
+    clip: {fileID: 8300000, guid: de85442af7ee45b45935834026db3541, type: 3}
+    volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Hit1
+    clip: {fileID: 8300000, guid: 6cc26394f7afdbb4eb8a54d907bdfe92, type: 3}
+    volume: 0.4
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Win
+    clip: {fileID: 8300000, guid: 2c4bc183a5df5aa4baf7c4fcf236a2de, type: 3}
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!81 &1456173583
 AudioListener:
   m_ObjectHideFlags: 0
@@ -55383,7 +55407,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 20
   checkAttack: {fileID: 1801841366}
-  Damage: 10
 --- !u!50 &1597620896
 Rigidbody2D:
   serializedVersion: 4
@@ -55560,7 +55583,9 @@ MonoBehaviour:
   speed: 6
   animator: {fileID: 2056037383}
   uIDocument: {fileID: 1756985}
-  hp: 100
+  maxHp: 100
+  normalEnemyCount: 0
+  bossEnemyCount: 0
 --- !u!61 &2056037387
 BoxCollider2D:
   m_ObjectHideFlags: 0
