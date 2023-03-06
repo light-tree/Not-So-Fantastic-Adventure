@@ -41,7 +41,6 @@ public class GameController : MonoBehaviour
         _bossScoreScreen = _document.rootVisualElement.Q<Label>("BossS");
         _normalScoreScreen = _document.rootVisualElement.Q<Label>("NormalS");
         _pauseLayout = _document.rootVisualElement.Q<VisualElement>("PauseScreen");
-        //_pauseLayout = _pauseScreen.Q<VisualElement>("PauseLayout");
         _continueButton = _document.rootVisualElement.Q<Button>("ContinueButton");
         _quitButton = _document.rootVisualElement.Q<Button>("QuitGameButton");
         _loseLayout = _document.rootVisualElement.Q<VisualElement>("LoseScreen");
@@ -73,14 +72,6 @@ public class GameController : MonoBehaviour
     {
         if(currentHp != playerCurrentHp)
         {
-            //if (currentHp > playerCurrentHp)
-            //{
-            //    currentHp -= currentHp * Time.deltaTime;
-            //}
-            //else
-            //{
-            //    currentHp += currentHp * Time.deltaTime;
-            //}
             currentHp = playerCurrentHp;
             _currenHealth.style.width = currentHp * 800 / maxHp;
             _healthDetail.text = $"{(Math.Round(currentHp, 0) < 0 ? 0 : Math.Round(currentHp, 0))}/{maxHp}";
@@ -95,7 +86,6 @@ public class GameController : MonoBehaviour
         if (Input.GetMouseButtonUp(1))
         {
             _pauseLayout.style.display = DisplayStyle.Flex;
-            //_document.rootVisualElement.Add(_pauseLayout);
             Time.timeScale = 0;
         }
     }
@@ -104,7 +94,6 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1;
         _pauseLayout.style.display = DisplayStyle.None;
-        //_document.rootVisualElement.Remove(_pauseLayout);
     }
 
     private void SetTime()
@@ -150,6 +139,7 @@ public class GameController : MonoBehaviour
 
     private void PlayAgainButtonClick()
     {
+        Debug.Log("Play again");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
