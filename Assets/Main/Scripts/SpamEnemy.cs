@@ -145,6 +145,5 @@ public class SpamEnemy : MonoBehaviour
         GeneralSpawnTime = (GeneralSpawnTime / (GeneralSpawnTimeBonus + GeneralSpawnTime)) * GeneralSpawnTime;
 
         TimeSpawnNormalEnemy = GeneralSpawnTime * 0.5f;
-        TimeSpawnBoss = GeneralSpawnTime * 10;
     }
 }
