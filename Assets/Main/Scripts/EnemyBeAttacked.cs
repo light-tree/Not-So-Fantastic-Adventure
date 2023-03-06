@@ -42,7 +42,7 @@ public class EnemyBeAttacked : MonoBehaviour
     void Update()
     {    
         time += Time.deltaTime;
-        if (IsAttacked && time >= timeEndHit)
+        if (IsAttacked && time >= timeEndHit && !IsDead)
         {
             IsAttacked=false;
             animator.Play("Run");
@@ -60,15 +60,22 @@ public class EnemyBeAttacked : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-
         }
     }
 
     public void BeAttacked(float damage)
     {
-        CurrentHealth -= damage;
+        if (!IsDead)
+        {
+            CurrentHealth -= damage;
+        }
+        else
+        {
+            return;
+        }
         if (CurrentHealth <= 0)
         {
+            IsDead = true;
             animator.Play("Dead");
             FindObjectOfType<AudioManagement>().Play("Hit1");
             DropItemOnDead();
@@ -81,11 +88,9 @@ public class EnemyBeAttacked : MonoBehaviour
             {
                 GameObject.Find("Player").GetComponent<PlayerControl>().normalEnemyCount++;
             }
-            IsDead = true;
             Destroy(HealthBar);
             Destroy(gameObject.GetComponent<EnemyMovement>());
             Destroy(gameObject.GetComponent<EnemyAttack>());
-            IsDead = true;
             timeEndDead = time2 + timeDead;
             Vector2 vector2 = gameObject.transform.position;
             gameObject.transform.position = new Vector2(vector2.x, vector2.y + 1f);

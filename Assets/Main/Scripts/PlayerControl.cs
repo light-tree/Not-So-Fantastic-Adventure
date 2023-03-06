@@ -152,13 +152,12 @@ public class PlayerControl : MonoBehaviour
             if (currentHp > maxHp)
             {
                 currentHp = maxHp;
-                FindObjectOfType<AudioManagement>().Play("LevelUp");
-                gameController.UpdateHealth(currentHp, maxHp);
-                gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
-                IsAttacked = true;
-                timeEndHit = time + timeHit;
             }
-            
+            FindObjectOfType<AudioManagement>().Play("LevelUp");
+            gameController.UpdateHealth(currentHp, maxHp);
+            gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
+            IsAttacked = true;
+            timeEndHit = time + timeHit;
         }
     }
 
