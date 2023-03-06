@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     private float maxHp;
     private float currentHp;
     private float playerCurrentHp;
+    private string totalTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -82,7 +83,7 @@ public class GameController : MonoBehaviour
             //}
             currentHp = playerCurrentHp;
             _currenHealth.style.width = currentHp * 800 / maxHp;
-            _healthDetail.text = $"{Math.Round(currentHp, 0)}/{maxHp}";
+            _healthDetail.text = $"{(Math.Round(currentHp, 0) < 0 ? 0 : Math.Round(currentHp, 0))}/{maxHp}";
         }
 
         PauseGame();

@@ -55102,8 +55102,8 @@ MonoBehaviour:
     source: {fileID: 0}
     loop: 1
   - name: NormalBattle
-    clip: {fileID: 8300000, guid: 2c067e6b558474e45a02e130fdd3f4fb, type: 3}
-    volume: 0.4
+    clip: {fileID: 8300000, guid: 431d735df2012884890a22cb300c899f, type: 3}
+    volume: 0.3
     pitch: 1
     source: {fileID: 0}
     loop: 1

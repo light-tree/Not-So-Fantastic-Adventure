@@ -80,6 +80,8 @@ public class PlayerControl : MonoBehaviour
                 IsAttacked = false;
                 gameObject.GetComponent<Renderer>().material.color = originalColor;
             }
+
+            FindObjectOfType<GameController>().UpdateScore(normalEnemyCount, bossEnemyCount);
         }
         
 
@@ -94,6 +96,7 @@ public class PlayerControl : MonoBehaviour
             else
             {
 
+                FindObjectOfType<GameController>().SetLoseScreen(normalEnemyCount, bossEnemyCount);
             }
 
         }
@@ -130,7 +133,6 @@ public class PlayerControl : MonoBehaviour
                 timeEndDead = time2 + timeDead;
                 Vector2 vector2 = gameObject.transform.position;
                 gameObject.transform.position = new Vector2(vector2.x, vector2.y + 1f);
-                FindObjectOfType<GameController>().SetLoseScreen(10, 10);
             }
             else
             {
@@ -147,11 +149,16 @@ public class PlayerControl : MonoBehaviour
         {
             GameController gameController = uIDocument.GetComponent<GameController>();
             currentHp += heal;
-            if(currentHp > maxHp) currentHp = maxHp;
-            gameController.UpdateHealth(currentHp, maxHp);
-            gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
-            IsAttacked = true;
-            timeEndHit = time + timeHit;
+            if (currentHp > maxHp)
+            {
+                currentHp = maxHp;
+                FindObjectOfType<AudioManagement>().Play("LevelUp");
+                gameController.UpdateHealth(currentHp, maxHp);
+                gameObject.GetComponent<Renderer>().material.color = new Color(255, 255, 255, 135);
+                IsAttacked = true;
+                timeEndHit = time + timeHit;
+            }
+            
         }
     }
 

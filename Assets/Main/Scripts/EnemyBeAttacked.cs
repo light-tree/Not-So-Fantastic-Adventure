@@ -76,14 +76,10 @@ public class EnemyBeAttacked : MonoBehaviour
             {
                 GameObject.Find("Main Camera").GetComponent<SpamEnemy>().IncreaseHard();
                 GameObject.Find("Player").GetComponent<PlayerControl>().bossEnemyCount++;
-                int bossEnemyCount = GameObject.Find("Player").GetComponent<PlayerControl>().bossEnemyCount;
-                Debug.Log("Boss: " + bossEnemyCount);
             }
             else
             {
                 GameObject.Find("Player").GetComponent<PlayerControl>().normalEnemyCount++;
-                int normalEnemyCount = GameObject.Find("Player").GetComponent<PlayerControl>().normalEnemyCount;
-                Debug.Log("Normal: " + normalEnemyCount);
             }
             IsDead = true;
             Destroy(HealthBar);
