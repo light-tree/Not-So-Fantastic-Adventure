@@ -100,9 +100,9 @@ public class GameController : MonoBehaviour
     {
         string result = "";
         timeRun += Time.deltaTime;
-        double minute = Math.Round(timeRun / 60, 0);
-        double second = Math.Round(timeRun % 60, 0);
-        if(minute < 10)
+        int minute = (int)Math.Floor((double)timeRun / (double)60);
+        int second = (int)Math.Floor((double)timeRun % (double)60);
+        if (minute < 10)
         {
             result += $"0{minute} : ";
         } else
