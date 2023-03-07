@@ -10,13 +10,7 @@ public class MenuController : MonoBehaviour
     private Button _playButton;
     private Button _settingButton;
     private Button _exitButton;
-    private Button _muteButton;
-    private Button _backButton;
-    private Button _saveButton;
-    private Slider _lightSlider;
-    private Slider _soundSlider;
     private VisualElement _buttonsContainer;
-    private VisualElement _addjustSetting;
     private VisualElement _exitPanel;
     private Button _confirmYesExit;
     private Button _confirmNoExit;
@@ -33,7 +27,6 @@ public class MenuController : MonoBehaviour
     private void Awake()
     {
         _doc = GetComponent<UIDocument>();
-        //_addjustSetting = _settingsTemplate.CloneTree();
         _buttonsContainer = _doc.rootVisualElement.Q<VisualElement>("ButtonContainer");
         _playButton = _doc.rootVisualElement.Q<Button>("PlayButton");
         _settingButton = _doc.rootVisualElement.Q<Button>("SettingButton");
@@ -41,76 +34,33 @@ public class MenuController : MonoBehaviour
         _exitPanel = _doc.rootVisualElement.Q<VisualElement>("ExitPanel");
         _confirmYesExit = _doc.rootVisualElement.Q<Button>("ConfirmYesExit");
         _confirmNoExit = _doc.rootVisualElement.Q<Button>("ConfirmNoExit");
-        //_backButton = _addjustSetting.Q<Button>("BackButton");
-        //_saveButton = _addjustSetting.Q<Button>("SaveButton");
-        //_soundSlider = _addjustSetting.Q<Slider>("SoundSetting");
-        //_lightSlider = _addjustSetting.Q<Slider>("LightSetting");
-        //_muteButton = _doc.rootVisualElement.Q<Button>("MuteButton");
 
         _playButton.clicked += PlayButtonOnClicked;
         _exitButton.clicked += ExitButtonOnClicked;
         _settingButton.clicked += SettingsButtonOnClick;
 
-        
         _confirmYesExit.clicked += ConfirmYesExitClicked;
         _confirmNoExit.clicked += ConfirmNoExitClicked;
-        //_backButton.clicked += BackButtonOnClick;
-        //_saveButton.clicked += SaveButtonOnClick;
-        //_muteButton.clicked += MuteButtonOnClick;
-
-
-      
     }
 
     private void PlayButtonOnClicked()
     {
         SceneManager.LoadScene("Game");
+        SceneManager.UnloadSceneAsync("Menu");
     }
 
     private void ExitButtonOnClicked()
     {
         _exitPanel.style.display = DisplayStyle.Flex;
         _buttonsContainer.style.display = DisplayStyle.None; 
-
-
-
-    }
-
-    private void MuteButtonOnClick()
-    {
-        _mute = !_mute;
-
-        var bg = _muteButton.style.backgroundImage;
-        bg.value = Background.FromSprite(_mute ? _mutedSprite : _unmutedSprite);
-        _muteButton.style.backgroundImage = bg;
-
-        AudioListener.volume = _mute ? 0 : 1;
     }
 
     private void SettingsButtonOnClick()
     {
-        _buttonsContainer.Clear();
-        _buttonsContainer.Add(_addjustSetting);
+        Debug.Log("lol");
+        SceneManager.LoadScene("Guide");
+        SceneManager.UnloadSceneAsync("Menu");
     }
-
-    private void BackButtonOnClick()
-    {
-        _buttonsContainer.Clear();
-        _buttonsContainer.Add(_playButton);
-        _buttonsContainer.Add(_settingButton);
-        _buttonsContainer.Add(_exitButton);
-    }
-
-    private void SaveButtonOnClick()
-    {
-        AudioListener.volume = _mute ? 0 : _soundSlider.value / 100;
-
-        _buttonsContainer.Clear();
-        _buttonsContainer.Add(_playButton);
-        _buttonsContainer.Add(_settingButton);
-        _buttonsContainer.Add(_exitButton);
-    }
-
 
     private void ConfirmYesExitClicked()
     {
@@ -123,8 +73,4 @@ public class MenuController : MonoBehaviour
         _buttonsContainer.style.display = DisplayStyle.Flex;
 
     }
-
-
-
-
 }
